@@ -1,7 +1,7 @@
-# mysql-debezium-cdc-consumer
+# mysql-debezium-cdc-consumer\
 
-Kafka, Zookeeper, etc starting using confluent:
-Download the Confluent 5.4.0 platform and extract it to any directory
+Kafka, Zookeeper, etc starting using confluent:\
+Download the Confluent 5.4.0 platform and extract it to any directory\
 then extract the file
 For 'name*.tar.gz' file
 $ tar -xvzf /path/to/the/confluent-5.4.0
