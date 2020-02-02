@@ -16,8 +16,8 @@ import java.util.Properties;
 @SpringBootApplication
 public class SimpleKafkaProducerApplication implements CommandLineRunner {
 
-    @Value("${kafka.topic.thetechcheck}")
-    private String theTechCheckTopicName;
+    @Value("${kafka.topic}")
+    private String topicName;
 
     @Value("${kafka.bootstrap.servers}")
     private String kafkaBootstrapServers;
@@ -40,7 +40,7 @@ public class SimpleKafkaProducerApplication implements CommandLineRunner {
         /*
          * Defining producer properties.
          */
-        Properties producerProperties = new Properties();
+        /*Properties producerProperties = new Properties();
         producerProperties.put("bootstrap.servers", kafkaBootstrapServers);
         producerProperties.put("acks", "all");
         producerProperties.put("retries", 0);
@@ -49,17 +49,17 @@ public class SimpleKafkaProducerApplication implements CommandLineRunner {
         producerProperties.put("buffer.memory", 33554432);
         producerProperties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         producerProperties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-
+        */
         /*
         Creating a Kafka Producer object with the configuration above.
          */
-        KafkaProducer<String, String> producer = new KafkaProducer<>(producerProperties);
+        //KafkaProducer<String, String> producer = new KafkaProducer<>(producerProperties);
 
         /*
         The sendTestMessagesToKafka method will generate some random test messages
         and send them to Kafka.
          */
-        sendTestMessagesToKafka(producer);
+        //sendTestMessagesToKafka(producer);
 
         /*
         Now that we've produced some test messages, let's see how to consume them using a Kafka consumer object.
@@ -86,10 +86,7 @@ public class SimpleKafkaProducerApplication implements CommandLineRunner {
         Thread kafkaConsumerThread = new Thread(() -> {
             logger.info("Starting Kafka consumer thread.");
 
-            SimpleKafkaConsumer simpleKafkaConsumer = new SimpleKafkaConsumer(
-                    theTechCheckTopicName,
-                    consumerProperties
-            );
+            SimpleKafkaConsumer simpleKafkaConsumer = new SimpleKafkaConsumer(topicName, consumerProperties );
 
             simpleKafkaConsumer.runSingleWorker();
         });
@@ -108,60 +105,60 @@ public class SimpleKafkaProducerApplication implements CommandLineRunner {
      *
      * @param producer The Kafka producer we created in the run() method earlier.
      */
-    private void sendTestMessagesToKafka(KafkaProducer<String, String> producer) {
-        /*
+   /* private void sendTestMessagesToKafka(KafkaProducer<String, String> producer) {
+        *//*
         Creating a loop which iterates 10 times, from 0 to 9, and sending a
         simple message to Kafka.
-         */
+         *//*
         for (int index = 0; index < 10; index++) {
             sendKafkaMessage("The index is now: " + index, producer, theTechCheckTopicName);
         }
 
-        /*
+        *//*
         Creating a loop which iterates 10 times, from 0 to 9, and creates an instance of JSONObject
         in each iteration. We'll use this simple JSON object to illustrate how we can send a JSON
         object as a message in Kafka.
-         */
+         *//*
         for (int index = 0; index < 10; index++) {
 
-            /*
+            *//*
             We'll create a JSON object which will have a bunch of fields, and another JSON object,
             which will be nested inside the first JSON object. This is just to demonstrate how
             complex objects could be serialized and sent to topics in Kafka.
-             */
+             *//*
             JSONObject jsonObject = new JSONObject();
             JSONObject nestedJsonObject = new JSONObject();
 
             try {
-                /*
+                *//*
                 Adding some random data into the JSON object.
-                 */
+                 *//*
                 jsonObject.put("index", index);
                 jsonObject.put("message", "The index is now: " + index);
 
-                /*
+                *//*
                 We're adding a field in the nested JSON object.
-                 */
+                 *//*
                 nestedJsonObject.put("nestedObjectMessage", "This is a nested JSON object with index: " + index);
 
-                /*
+                *//*
                 Adding the nexted JSON object to the main JSON object.
-                 */
+                 *//*
                 jsonObject.put("nestedJsonObject", nestedJsonObject);
 
             } catch (JSONException e) {
                 logger.error(e.getMessage());
             }
 
-            /*
+            *//*
             We'll now serialize the JSON object we created above, and send it to the same topic in Kafka,
             using the same function we used earlier.
             You can use any JSON library for this, just make sure it serializes your objects properly.
             A popular alternative to the one I've used is Gson.
-             */
+             *//*
             sendKafkaMessage(jsonObject.toString(), producer, theTechCheckTopicName);
         }
-    }
+    }*/
 
     /**
      * Function to send a message to Kafka
@@ -169,11 +166,9 @@ public class SimpleKafkaProducerApplication implements CommandLineRunner {
      * @param producer The KafkaProducer object
      * @param topic The topic to which we want to send the message
      */
-    private static void sendKafkaMessage(String payload,
-             KafkaProducer<String, String> producer,
-             String topic)
+    /*private static void sendKafkaMessage(String payload, KafkaProducer<String, String> producer, String topic)
     {
         logger.info("Sending Kafka message: " + payload);
         producer.send(new ProducerRecord<>(topic, payload));
-    }
+    }*/
 }
