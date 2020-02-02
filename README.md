@@ -1,26 +1,26 @@
-# mysql-debezium-cdc-consumer\
+# mysql-debezium-cdc-consumer
 
 Kafka, Zookeeper, etc starting using confluent:\
 Download the Confluent 5.4.0 platform and extract it to any directory\
-then extract the file
-For 'name*.tar.gz' file
-$ tar -xvzf /path/to/the/confluent-5.4.0
-$ cd confluent-5.4.0
-$ vi ~/.bashrc
-then add the following lines ebd of that file's
-export CONFLUENT_HOME=/path/to/the/confluent-5.4.0
-export PATH=$CONFLUENT_HOME/bin:$PATH
+then extract the file\
+For 'name*.tar.gz' file\
+$ tar -xvzf /path/to/the/confluent-5.4.0\
+$ cd confluent-5.4.0\
+$ vi ~/.bashrc\
+then add the following lines ebd of that file's\
+export CONFLUENT_HOME=/path/to/the/confluent-5.4.0\
+export PATH=$CONFLUENT_HOME/bin:$PATH\
+\
+$ source ~/.bashrc\
+check the confluent version\
+$  confluent --version\
+$ confluent local start\
 
-$ source ~/.bashrc
-check the confluent version
-$  confluent --version
-$ confluent local start
+Setting up MySQL server:\
+https://debezium.io/documentation/reference/assemblies/cdc-mysql-connector/as_setup-the-mysql-server.html \
 
-Setting up MySQL server:
-https://debezium.io/documentation/reference/assemblies/cdc-mysql-connector/as_setup-the-mysql-server.html
-
-Create a new MySql user:
-$ mysql -u root -p
+Create a new MySql user:\
+$ mysql -u root -p \
 Mysql > CREATE USER 'apu'@'localhost' IDENTIFIED BY 'tigerit';
 Mysql > GRANT ALL PRIVILEGES ON * . * TO 'apu'@'localhost';
 Mysql $ FLUSH PRIVILEGES;
